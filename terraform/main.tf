@@ -12,10 +12,6 @@ terraform {
     }
   }
 }
-
-
-
-
 provider "aws" {
   region = "us-east-1"
 }
@@ -108,20 +104,37 @@ data "aws_ami" "ubuntu" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+  
 
   owners = ["099720109477"] # Canonical
 }
-
-
-resource "aws_instance" "my_ec2_instance" {
+ resource "aws_instance" "my_ec2_instance" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.PublicSubnetTerraform.id # Place the instance in the public subnet
-  # Associate the security group created earlier
   vpc_security_group_ids = [aws_security_group.terraform_security_group.id]
+  key_name = "my-new-keypair"
+  associate_public_ip_address = true
+
   # Ensure you have this key pair created in AWS or add this field accordingly
 
   tags = {
     Name = "My-Ec2"
   }
-}
+  #Create a local file resource for the PEM file
+
+# Run the Ansible playbook using a null resource
+
+
+  depends_on = [aws_instance.my_ec2_instance]
+
+
+# resource "null_resource" "run_ansible_playbook" {
+  provisioner "local-exec" {
+    command = <<EOT
+    echo " [my_ec2_instance] " > inventory
+      ansible-playbook -i ${aws_instance.my_ec2_instance.public_ip}, -u ubuntu --private-key "my-new-keypair.pem" "DevOps-training-Project/Ansible/Playbooks.yml"
+   EOT
+  }
+
+ }
