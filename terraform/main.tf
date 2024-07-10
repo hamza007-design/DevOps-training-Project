@@ -131,12 +131,4 @@ data "aws_ami" "ubuntu" {
   depends_on = [aws_instance.my_ec2_instance]
 
 
- # resource "null_resource" "run_ansible_playbook" {
-#   provisioner "local-exec" {
-#     command = <<EOT
-#     echo " [my_ec2_instance] " > inventory
-#       ansible-playbook -i ${aws_instance.my_ec2_instance.public_ip}, -u ubuntu --private-key "my-new-keypair.pem" "DevOps-training-Project/Ansible/Playbooks.yml"
-#    EOT
-#   }
-
-  }
+ 
