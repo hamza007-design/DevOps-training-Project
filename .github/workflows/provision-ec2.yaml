@@ -34,7 +34,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: Playbooks.yml
-          directory: DevOps-training-Project/Ansible          
+          directory: ./DevOps-training-Project/Ansible          
           key: ${{secrets.MY_SECRET_KEYPAIR}}
           inventory: |
             [all]
