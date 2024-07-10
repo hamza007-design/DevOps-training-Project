@@ -29,4 +29,16 @@ jobs:
           terraform validate
           terraform plan 
           terraform apply -auto-approve
-     
+          
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: Playbooks.yml
+          directory: DevOps-training-Project/Ansible          
+          key: ${{secrets.MY_SECRET_KEYPAIR}}
+          inventory: |
+            [all]
+            44.210.239.96
+          # Optional, SSH known hosts file content
+          # known_hosts: |
+            # example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
