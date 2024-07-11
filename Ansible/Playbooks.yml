@@ -1,4 +1,24 @@
 ---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: Ensure .ssh directory exists
+      file:
+        path: ~/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Ensure known_hosts file exists
+      file:
+        path: ~/.ssh/known_hosts
+        state: touch
+        mode: '0644'
+
+    - name: Add SSH key to known_hosts
+      shell: ssh-keyscan -t rsa,dsa,ecdsa,ed25519 44.210.104.196 >> ~/.ssh/known_hosts
+      args:
+        creates: ~/.ssh/known_hosts
+
 - hosts: all
   become: true
   tasks:
@@ -12,19 +32,23 @@
         name: docker.io
         state: present
 
- 
-    # - name: Add user to docker group
-    #   user:
-    #     name: ubuntu
-    #     groups: docker
-    #     append: yes
+    - name: Install docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
 
-    # - name: Copy Docker Compose file
-    #   copy:
-    #     src: docker-compose.yml
-    #     dest: /home/ubuntu/docker-compose.yml
-    #     remote_src: yes
+    - name: Add user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
 
-    # - name: Run Docker Compose
-    #   command: cd /home/ubuntu
-    #            docker-compose up -d
+    - name: Copy Docker Compose file
+      copy:
+        src: ./Ansible/docker-compose.yml
+        dest: /home/ubuntu/docker-compose.yml
+        remote_src: yes
+
+    - name: Run Docker Compose
+      command: docker-compose -f /home/ubuntu/docker-compose.yml up -d
