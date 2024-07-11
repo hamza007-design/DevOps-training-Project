@@ -39,7 +39,7 @@ jobs:
           key: ${{secrets.MY_SECRET_KEYPAIR}}
           inventory: |
             [all]
-            44.210.239.96
+            44.210.104.196
           
             # Optional, SSH known hosts file content
            # known_hosts: |
