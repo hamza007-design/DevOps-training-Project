@@ -29,6 +29,12 @@ jobs:
           terraform validate
           terraform plan 
           terraform apply -auto-approve
+
+      - name: List directory contents for debugging
+        run: |
+          ls -R
+          ls -R DevOps-training-Project
+          ls -R DevOps-training-Project/Ansible 
           
       - name: Run playbooks
         uses: dawidd6/action-ansible-playbook@v2
