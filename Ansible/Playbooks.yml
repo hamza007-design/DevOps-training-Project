@@ -14,9 +14,9 @@
 
     - name: Install Docker Compose
       get_url:
-         url : https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
-      dest: /usr/local/bin/docker-compose
-      mode: 'u+x,g+x'
+        url: https://github.com/docker/compose/releases/download/1.25.3.2/docker-compose
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
 
     - name: Add user to docker group
       user:
