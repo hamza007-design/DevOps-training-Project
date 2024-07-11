@@ -1,7 +1,7 @@
 name: Provision t3.micro EC2
 
 on:
-  workflow_dispatch:
+  push:
     
 jobs:
   provision-ec2:
