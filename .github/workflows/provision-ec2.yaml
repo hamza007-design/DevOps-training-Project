@@ -40,7 +40,7 @@ jobs:
           playbook: Playbooks.yml
           directory: "Ansible/"
 
-          key: Ansible/my-new-keypair.pem
+          key: my-new-keypair.pem
           inventory: |
             [all] 
             44.210.104.196
