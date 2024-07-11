@@ -30,11 +30,12 @@ jobs:
           terraform plan 
           terraform apply -auto-approve
           
-      - name: Run playbook
+      - name: Run playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: Playbooks.yml
-          directory: ./DevOps-training-Project/Ansible/Playbooks.yml      
+          directory: ~/DevOps training/DevOps-training-Project/Ansible/Playbooks.yml  
+
           key: ${{secrets.MY_SECRET_KEYPAIR}}
           inventory: |
             [all]
