@@ -29,16 +29,20 @@ jobs:
           terraform validate
           terraform plan 
           terraform apply -auto-approve
-          
+
+      - name: Change Pemfile permissons
+        run: |
+          chmod 600 ./DevOps-training-Project/Ansible/my-new-keypair.pem
+
       - name: Run playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: Playbooks.yml
           directory: "Ansible/"
 
-          key: ${{secrets.MY_SECRET_KEYPAIR}}
+          key: ./DevOps-training-Project/Ansible/my-new-keypair.pem
           inventory: |
-            [all]
+            [all] 
             44.210.104.196
 
            # Optional, SSH known hosts file content
