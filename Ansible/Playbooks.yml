@@ -12,24 +12,19 @@
         name: docker.io
         state: present
 
-    - name: Install docker-compose
-      get_url:
-        url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
-        dest: /usr/local/bin/docker-compose
-        mode: 'u+x,g+x'
+ 
+    # - name: Add user to docker group
+    #   user:
+    #     name: ubuntu
+    #     groups: docker
+    #     append: yes
 
-    - name: Add user to docker group
-      user:
-        name: ubuntu
-        groups: docker
-        append: yes
+    # - name: Copy Docker Compose file
+    #   copy:
+    #     src: docker-compose.yml
+    #     dest: /home/ubuntu/docker-compose.yml
+    #     remote_src: yes
 
-    - name: Copy Docker Compose file
-      copy:
-        src: docker-compose.yml
-        dest: /home/ubuntu/docker-compose.yml
-        remote_src: yes
-
-    - name: Run Docker Compose
-      command: cd /home/ubuntu
-               docker-compose up -d
+    # - name: Run Docker Compose
+    #   command: cd /home/ubuntu
+    #            docker-compose up -d

@@ -117,11 +117,15 @@ data "aws_ami" "ubuntu" {
   vpc_security_group_ids = [aws_security_group.terraform_security_group.id]
   key_name = "my-new-keypair"
   associate_public_ip_address = true
-
+  
   # Ensure you have this key pair created in AWS or add this field accordingly
 
   tags = {
     Name = "My-Ec2"
+  }
+
+  provisioner "local-exec" {
+    command = "cd ../Ansible && touch dynamic_inventory.ini"
   }
   #Create a local file resource for the PEM file
 
@@ -130,5 +134,23 @@ data "aws_ami" "ubuntu" {
 
   depends_on = [aws_instance.my_ec2_instance]
  }
-
- 
+data "template_file" "inventory" {
+  template = <<-EOT
+  [ec2_instances]
+  ${aws_instance.my_ec2_instance.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=../Ansible/my-new-keypair.pem
+  EOT
+}
+resource "local_file" "dynamic_inventory" {
+  depends_on = [aws_instance.my_ec2_instance]
+  filename = "../Ansible/dynamic_inventory.ini"
+  content = data.template_file.inventory.rendered
+  provisioner "local-exec" {
+    command = "chmod 400 ${local_file.dynamic_inventory.filename}"
+  }
+}
+resource "null_resource" "run_ansible" {
+  depends_on = [ local_file.dynamic_inventory ]
+  provisioner "local-exec" {
+     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ../Ansible/dynamic_inventory.ini ../Ansible/Playbooks.yml -- "
+   }
+}
