@@ -50,17 +50,4 @@ jobs:
           ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i inventory.yml Playbooks.yml
 
 
-      # - name: Run playbooks
-      #   uses: dawidd6/action-ansible-playbook@v2
-      #   with:
-      #     playbook: Playbooks.yml
-      #     directory: "Ansible/"
-
-      #     key: my-new-keypair.pem
-          # inventory: |
-          #   [all] 
-          #   44.210.104.196
-
-           # Optional, SSH known hosts file content
-           # known_hosts: |
-            # example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+      
