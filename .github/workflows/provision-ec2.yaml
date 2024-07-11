@@ -32,9 +32,6 @@ jobs:
 
       - name: Change Pemfile permissons
         run: |
-          ls 
-          pwd 
-          echo "------------------------------------"
           chmod 600 Ansible/my-new-keypair.pem
 
       - name: Run playbooks
@@ -43,7 +40,7 @@ jobs:
           playbook: Playbooks.yml
           directory: "Ansible/"
 
-          key: ./DevOps-training-Project/Ansible/my-new-keypair.pem
+          key: Ansible/my-new-keypair.pem
           inventory: |
             [all] 
             44.210.104.196
