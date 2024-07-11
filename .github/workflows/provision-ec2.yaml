@@ -32,6 +32,9 @@ jobs:
 
       - name: Change Pemfile permissons
         run: |
+          ls 
+          pwd 
+          echo "------------------------------------"
           chmod 600 ./DevOps-training-Project/Ansible/my-new-keypair.pem
 
       - name: Run playbooks
