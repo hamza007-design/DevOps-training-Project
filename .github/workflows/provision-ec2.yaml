@@ -34,16 +34,23 @@ jobs:
         run: |
           chmod 600 Ansible/my-new-keypair.pem
 
-      - name: Run playbooks
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          playbook: Playbooks.yml
-          directory: "Ansible/"
+      - name: Run ansible script
+        shell: bash 
+        run: |
+          cd Ansible/
+          ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i 44.210.104.196 Playbooks.yml
 
-          key: my-new-keypair.pem
-          inventory: |
-            [all] 
-            44.210.104.196
+
+      # - name: Run playbooks
+      #   uses: dawidd6/action-ansible-playbook@v2
+      #   with:
+      #     playbook: Playbooks.yml
+      #     directory: "Ansible/"
+
+      #     key: my-new-keypair.pem
+          # inventory: |
+          #   [all] 
+          #   44.210.104.196
 
            # Optional, SSH known hosts file content
            # known_hosts: |
