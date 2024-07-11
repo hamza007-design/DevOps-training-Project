@@ -42,8 +42,12 @@ jobs:
           cd .ssh
           touch known_hosts
           ssh-keyscan -t rsa,dsa,ecdsa,ed25519 44.210.104.196 >> ~/.ssh/known_hosts
-          #  cd Ansible/
-          # ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i inventory.yml Playbooks.yml
+
+      - name: Run ansible
+        shell: bash 
+        run: |
+          cd Ansible/
+          ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i inventory.yml Playbooks.yml
 
 
       # - name: Run playbooks
