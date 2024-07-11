@@ -29,12 +29,6 @@ jobs:
           terraform validate
           terraform plan 
           terraform apply -auto-approve
-
-      - name: List directory contents for debugging
-        run: |
-          ls -R
-          ls -R DevOps-training-Project
-          ls -R DevOps-training-Project/Ansible 
           
       - name: Run playbooks
         uses: dawidd6/action-ansible-playbook@v2
@@ -47,9 +41,6 @@ jobs:
             [all]
             44.210.104.196
 
-            env:
-          ANSIBLE_STDOUT_CALLBACK: debug
-          
-            # Optional, SSH known hosts file content
+           # Optional, SSH known hosts file content
            # known_hosts: |
             # example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
