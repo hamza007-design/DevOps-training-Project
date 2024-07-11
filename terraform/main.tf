@@ -129,6 +129,6 @@ data "aws_ami" "ubuntu" {
 
 
   depends_on = [aws_instance.my_ec2_instance]
-
+ }
 
  
