@@ -38,7 +38,7 @@ jobs:
         shell: bash 
         run: |
           cd Ansible/
-          ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i 44.210.104.196 Playbooks.yml
+          ansible-playbook --private-key my-new-keypair.pem -u ubuntu -i inventory.yml Playbooks.yml
 
 
       # - name: Run playbooks
