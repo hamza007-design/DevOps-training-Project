@@ -26,7 +26,7 @@
 
     - name: Copy Docker Compose file
       copy:
-        src: ./Ansible/docker-compose.yml
+        src: DevOps-training-Project/Ansible/docker-compose.yml
         dest: /home/ubuntu/docker-compose.yml
 
     - name: Run Docker Compose
