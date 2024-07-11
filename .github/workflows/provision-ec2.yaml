@@ -46,6 +46,9 @@ jobs:
           inventory: |
             [all]
             44.210.104.196
+
+            env:
+          ANSIBLE_STDOUT_CALLBACK: debug
           
             # Optional, SSH known hosts file content
            # known_hosts: |
