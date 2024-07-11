@@ -1,7 +1,7 @@
-name: Provision t3.micro EC2
+name: Provision t2.micro EC2
 
 on:
-  workflow_dispatch:
+  push:
     
 jobs:
   provision-ec2:
@@ -29,17 +29,27 @@ jobs:
           terraform validate
           terraform plan 
           terraform apply -auto-approve
+
+      - name: List directory contents for debugging
+        run: |
+          ls -R
+          ls -R DevOps-training-Project
+          ls -R DevOps-training-Project/Ansible 
           
-      - name: Run playbook
+      - name: Run playbooks
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: Playbooks.yml
-          directory: ./DevOps-training-Project/Ansible          
+          directory: ./DevOps-training-Project/Ansible/Playbooks.yml
+
           key: ${{secrets.MY_SECRET_KEYPAIR}}
           inventory: |
             [all]
-            44.210.239.96
-          # Optional, SSH known hosts file content
-          # known_hosts: |
+            44.210.104.196
+
+            env:
+          ANSIBLE_STDOUT_CALLBACK: debug
+          
+            # Optional, SSH known hosts file content
+           # known_hosts: |
             # example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
-     
