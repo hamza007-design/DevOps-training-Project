@@ -151,6 +151,6 @@ resource "local_file" "dynamic_inventory" {
 resource "null_resource" "run_ansible" {
   depends_on = [ local_file.dynamic_inventory ]
   provisioner "local-exec" {
-     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ../Ansible/dynamic_inventory.ini ../Ansible/Playbooks.yml -- "
+     command = "ansible-playbook -i ../Ansible/dynamic_inventory.ini ../Ansible/Playbooks.yml -- "
    }
 }
