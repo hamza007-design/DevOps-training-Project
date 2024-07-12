@@ -15,7 +15,7 @@
         mode: '0644'
 
     - name: Add SSH key to known_hosts
-      shell: ssh-keyscan -t rsa,dsa,ecdsa,ed25519 44.210.104.196 >> ~/.ssh/known_hosts
+      shell: ssh-keyscan -t rsa,dsa,ecdsa,ed25519 44.210.70.146 >> ~/.ssh/known_hosts
       args:
         creates: ~/.ssh/known_hosts
 
